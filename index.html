@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Rock, Paper, Scissors</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+  <link async href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="header">
+    <img class="header__logo" src="./images/logo.svg" alt="Paper, Rock, Scissors">
+    <div class="header__score">
+      <h3 class="header__score__title">Score </br> <span class="header__score__score" id="score">15</span></h3>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="main__section">
+      <div class="main__button" id='rock'>
+        <img class="main__button__option" src="./images/icon-rock.svg" alt="Rock">
+      </div>
+      <div class="main__button" id='paper'>
+        <img class="main__button__option" src="./images/icon-paper.svg" alt="Paper">
+      </div>
+      <div class="main__button" id='scissors'>
+        <img class="main__button__option" src="./images/icon-scissors.svg" alt="scissors">
+      </div>
+    </section>
+  </main>
+
+  <div class="rulesContainer" id="rulesContainer">
+    <div class='rules'>
+      <div class="rules__header">
+        <h3 class="rules__header__title">RULES</h3>
+        <span class="rules__header__close" id="closeRulesContainer"><img src="./images/icon-close.svg" alt="Close"></span>
+      </div>
+      <img src="./images/image-rules.svg" alt="Rules">
+    </div>
+  </div>
+  
+  <button id="rules__button">Rules</button>
+
+  <!-- <footer>
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="#">Diego Salazar</a>.
+    </div>
+  </footer> -->
+  <script src="master.js"></script>
+</body>
+</html>
