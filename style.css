@@ -27,6 +27,8 @@ body{
   flex-direction: column;
 }
 
+/*----------------------------HEADER----------------------------*/
+
 .header{
   border: 3px solid var(--headerOutline);
   border-radius: 15px;
@@ -70,6 +72,8 @@ body{
   vertical-align: text-top;
 }
 
+/*------------------------MAIN----------------------------------*/
+
 .main{
   display: flex;
   justify-content: center;
@@ -79,6 +83,10 @@ body{
 }
 
 .main__section{
+  --top: 8%;
+  --side: -30%;
+  --bottom: 10%;
+
   display: flex;
   background: url(./images/bg-triangle.svg) center/contain no-repeat;
   position: relative;
@@ -88,18 +96,25 @@ body{
   transition: .8s ease;
 }
 
-.main__button{
-  --top: 8%;
-  --side: -30%;
+.bonus{
+  --top: 25%;
+  --side: -25%;
   --bottom: 10%;
+  --width: 150px;
+  --height: 150px;
 
+  min-height: 500px; height: 50vh;
+  background: url(./images/bg-pentagon.svg) center/contain no-repeat;
+}
+
+.main__button{
   display: flex;
   cursor: pointer;
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: var(--width, 200px);
+  height: var(--height, 200px);
   border-radius: 50%;
   transition: .5s ease;
   box-shadow: inset 0 -10px 0 0 rgba(17, 17, 17, 0.3);
@@ -110,30 +125,49 @@ body{
   transform: scale(1.1);
 }
 
-#rock{
+.rock{
   background: var(--rock);
   bottom: var(--bottom);
   margin: auto;
 }
 
-#paper{
+.bonus .rock{
+  right: calc(var(--side) + 15%);
+}
+
+.paper{
   top: var(--top);
   left: var(--side);
   background: var(--paper);
 }
 
-#scissors{
+.bonus .paper{
+  left: auto;
+  right: var(--side)
+}
+
+.scissors{
   top: var(--top);
   right: var(--side);
   background: var(--scissors);
 }
 
-#lizzard{
+.bonus .scissors{
+  top: 5%;
   left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.lizzard{
+  bottom: var(--bottom);
+  left: calc(var(--side) + 15%);
   background: var(--lizard);
 }
 
-#spock{
+.spock{
+  top: var(--top);
+  left: var(--side);
   background: var(--cyan);
 }
 
@@ -165,18 +199,25 @@ body{
 #results{
   position: absolute;
   background: none;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto auto auto;
   justify-content: space-between;
   align-items: center;
   z-index: -1;
-  opacity: 0;
-  width: 40%;
+  min-width: 80%;
+  height: 100%;
   padding-top: 30px;
   color: white;
+  opacity: 0;
   transition-delay: .5s;
 }
 
-#user, #house{
+#results .main__button{
+  --width: 280px;
+  --height: 280px;
+}
+
+.main__section__card{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -184,9 +225,23 @@ body{
   position: relative;
   min-height: 100%;
   min-width: 150px;
+  transition: .5s ease transform;
+  /* animation: .5s move ease .5s; */
 }
 
-#user > .main__button, #house > .main__button{
+.main__section__card > h3{
+  font-size: 2em;
+}
+
+#user{
+  transform: translateX(60%);
+}
+
+#house{
+  transform: translateX(-60%);
+}
+
+.main__section__card > .main__button, .main__section__card > .main__button{
   position: relative;
   margin-top: 20px;
   top: auto;
@@ -199,6 +254,43 @@ body{
   z-index: 0 !important;
   opacity: 1 !important;
 }
+
+#conclusion{
+  display: flex;
+  justify-self: center;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 30%; min-width: 250px;
+  min-height: 200px;
+  opacity: 1;
+  transition: .5s ease opacity;
+}
+
+.conclusionActive{
+  opacity: 1 !important;
+}
+
+.conclusion__title{
+  font-size: 3em;
+  text-rendering: optimizeLegibility;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+#conclusion > .conclusion__button{
+  background-color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bolder;
+  border: 0;
+  color: hsl(349, 71%, 52%);
+  padding: 15px;
+  width: 80%
+}
+
+/*------------------------Rules------------------------------*/
 
 .rulesContainer{
   position: fixed;
@@ -270,6 +362,8 @@ body{
   background-color: var(--darkText);
   color: black;
 }
+
+/*---------------------Media Queries---------------------------------*/
 
 @media screen and (max-width: 500px){
   body{
