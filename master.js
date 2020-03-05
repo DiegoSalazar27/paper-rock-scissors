@@ -10,10 +10,13 @@ const user = results.firstElementChild.lastElementChild
 const house = results.lastElementChild.lastElementChild
 const conclusion__title = document.getElementById('conclusion__title')
 const play_again = document.getElementById('play_again')
+const change = document.getElementById('change')
 
 const rulesBonus = './images/image-rules-bonus.svg'
+const rulesNormal = './images/image-rules.svg'
 var user__response = false
 var score = 0
+var main__buttons = document.getElementsByClassName('main__buttons')
 
 const options = [
   paper = {
@@ -34,7 +37,6 @@ const lizzard = {
   name: 'lizzard',
   kill: ['paper', 'spock']
 }
-
 const spock = {
   name: 'spock',
   kill: ['scissors', 'rock'],
@@ -49,34 +51,63 @@ if (user__response) {
 const options__buttons = options.map(element => createElement(element))  //Creating button elements for the game
 
 window.addEventListener('load', () =>{
+  change.addEventListener('click', changeGame)
+
   rules__button.addEventListener('click', () => rulesContainer.classList.add('rulesContainerActive'))
   closeRulesContainer.addEventListener('click', () => rulesContainer.classList.remove('rulesContainerActive'))
 
   options__buttons.forEach(element => main.appendChild(element))
-
-  options__buttons.forEach(element => {
-    element.addEventListener('click', game)
-  })
+  
+  searchButtons()
 
   play_again.addEventListener('click', () =>{
-    options__buttons.forEach(element => {
-      element.addEventListener('click', game)
-    })
+    searchButtons()
+
+    change.addEventListener('click', changeGame)
     results.classList.remove('results--show')
     main.classList.remove('mainHide')
+    conclusion__title.parentElement.classList.remove('conclusion--Active')
+    house.parentElement.style.setProperty('transform', 'translate(-60%)')
+    user.parentElement.style.setProperty('transform', 'translate(60%)')
   })
 })
 
-function createElement(element, containerDiv, Containerimg ){
-  let container = containerDiv
-  let img = Containerimg
-  let created = true
+function searchButtons(){
+  main.childNodes.forEach(element =>{
+    if (element.classList) {
+      element.addEventListener('click', game)  
+    }
+  })
+}
 
-  if (!container) {
-    container = document.createElement('div')
-    img = document.createElement('img')
-    created = false
+function changeGame(){
+  user__response = !user__response
+  if (user__response) {
+    options.push(lizzard, spock)
+    let element = createElement(lizzard)
+    main.appendChild(element)
+
+    element = createElement(spock)
+    main.appendChild(element)
+
+    rulesImg.setAttribute('src', rulesBonus)
+    main.classList.add('bonus')
+    searchButtons()
+  }else{
+    main.removeChild(main.lastElementChild)
+    main.removeChild(main.lastElementChild)
+    options.pop()
+    options.pop()
+
+    rulesImg.setAttribute('src', rulesNormal)
+    main.classList.remove('bonus')
+    searchButtons()
   }
+}
+
+function createElement(element, containerDiv, Containerimg ){
+  let container = containerDiv || document.createElement('div')
+  let img = Containerimg  || document.createElement('img')
 
   container.setAttribute('class', 'main__button')
   container.classList.add(element.name)
@@ -85,8 +116,8 @@ function createElement(element, containerDiv, Containerimg ){
   img.setAttribute('class', 'main__button__option')
   img.setAttribute('src', `./images/icon-${element.name}.svg`)
   img.setAttribute('alt', element.name)
-
-  if (!created) {
+  
+  if (!container.lastElementChild) {
     container.appendChild(img)
   }
 
@@ -108,6 +139,7 @@ function removeEvents(){
   options__buttons.forEach(element =>{
     element.removeEventListener('click', game)
   })
+  change.removeEventListener('click', changeGame)
 }
 
 function startGame(user_selection){
@@ -127,6 +159,7 @@ function startGame(user_selection){
     userLoses()
   }
   scoreTag.innerHTML = score
+  conclusion__title.parentElement.classList.add('conclusion--Active')
   setTimeout(() =>{
     house.parentElement.style.setProperty('transform', 'translate(0)')
     user.parentElement.style.setProperty('transform', 'translate(0)')
