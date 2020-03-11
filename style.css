@@ -297,11 +297,11 @@ body{
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   transition: .5s ease;
   opacity: 0;
+  width: 100%;
+  height: 100vh;
   z-index: -1;
 }
 
@@ -393,7 +393,7 @@ body{
   }
 
   .main{
-    min-height: 350px;
+    min-height: 450px;
     height: 75vh;
   }
 
@@ -429,6 +429,8 @@ body{
   #results{
     grid-template-areas: 'user house' 'conclusion conclusion';
     padding-bottom: 100px;
+    min-width: 300px;
+    /* min-height: 500px; */
   }  
 
   #conclusion{
@@ -438,8 +440,13 @@ body{
   .rules{
     align-items: center;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     border-radius: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(0, 0);
   }
 
   .game__button{
@@ -450,9 +457,19 @@ body{
 
   #change{
     bottom: 10px;
+    padding: 10px 20px;
   }
 
   #rules__button{
     bottom: 60px !important;
+  }
+}
+
+@media screen and (max-width: 400px){
+  #conclusion{
+    min-height: 150px;
+  }
+  #main{
+    min-height: 380px;
   }
 }
